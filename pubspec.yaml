@@ -29,6 +29,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.0.3
+  equatable: ^2.0.3
+  dartz: ^0.10.1
+  built_collection: ^5.1.1
+  built_value: ^8.3.3
+  fluttertoast: ^8.0.8
+  cached_network_image: ^3.1.0
+  material_design_icons_flutter: ^5.0.6295
+  pin_code_fields: ^7.4.0
+  local_auth: ^2.1.0
+  
+  # Firebase dependencies
+  firebase_core: ^1.19.2
+  firebase_analytics: ^9.2.0
+  firebase_auth: ^3.4.2
+  cloud_firestore: ^3.3.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -38,6 +54,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.0.0
+  built_value_generator: ^8.3.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
