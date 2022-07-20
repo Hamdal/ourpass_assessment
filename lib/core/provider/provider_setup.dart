@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ourpass_assessment/features/authentication/data/datasources/remote_data_source_impl.dart';
+import 'package:ourpass_assessment/features/authentication/data/repository/auth_repository_impl.dart';
+import 'package:ourpass_assessment/features/authentication/domain/usecases/create_account.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 List<SingleChildWidget> providers = [
   ...independentServices,
-  // ...dependentServices,
+  ...dependentServices,
 ];
 
 List<SingleChildWidget> independentServices = [
@@ -13,4 +16,18 @@ List<SingleChildWidget> independentServices = [
   Provider.value(value: FirebaseAuth.instance),
 ];
 
-List<SingleChildWidget> dependentServices = [];
+List<SingleChildWidget> dependentServices = [
+  // AUTHENTICATION FEATURE DEPENDENCIES
+  ProxyProvider2<FirebaseAuth, FirebaseFirestore, AuthRemoteDataSourceImpl>(
+    update: (context, firebaseAuth, firestore, authRemoteDataSource)
+      => AuthRemoteDataSourceImpl(firebaseAuth: firebaseAuth, firestore: firestore)
+  ),
+  ProxyProvider<AuthRemoteDataSourceImpl, AuthRepositoryImpl>(
+    update: (context, dataSource, repository)
+      => AuthRepositoryImpl(dataSource: dataSource)
+  ),
+  ProxyProvider<AuthRepositoryImpl, CreateAccount>(
+    update: (context, repository, getAppUserState)
+      => CreateAccount(repository: repository)
+  ),
+];

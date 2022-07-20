@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ourpass_assessment/config/constants.dart';
 
 class FillWidthButton extends StatelessWidget {
   final Function? onPressed;
   final String text;
-  final bool isLoading;
+  final bool loading;
   final double fontSize;
   final double borderRadius;
   final FontWeight? fontWeight;
@@ -13,7 +14,7 @@ class FillWidthButton extends StatelessWidget {
   
   const FillWidthButton({ 
     Key? key,
-    this.isLoading = false,
+    this.loading = false,
     this.fontSize = 16,
     this.borderRadius = 8,
     this.fontWeight = FontWeight.w600,
@@ -30,14 +31,14 @@ class FillWidthButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color(0xFF0184D6).withOpacity(isLoading ? 0.6 : 1), 
-            const Color(0xFF004067).withOpacity(isLoading ? 0.6 : 1)
+            AppColors.primaryLight.withOpacity(loading ? 0.6 : 1), 
+            AppColors.primary.withOpacity(loading ? 0.6 : 1)
           ]
         ),
         borderRadius: BorderRadius.circular(borderRadius)
       ),
       child: MaterialButton(
-        onPressed: isLoading || onPressed == null ? null : () => onPressed!(),
+        onPressed: loading || onPressed == null ? null : () => onPressed!(),
         elevation: elevation ?? 0,
         hoverElevation: elevation ?? 0,
         enableFeedback: true,
@@ -64,7 +65,7 @@ class FillWidthButton extends StatelessWidget {
             ),
             // SizedBox(width: 48),
             Visibility(
-              visible: isLoading,
+              visible: loading,
               child: Container(
                 width: 20,
                 height: 20,

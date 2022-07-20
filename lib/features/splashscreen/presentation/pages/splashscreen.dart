@@ -19,7 +19,7 @@ class _SplashscreenState extends State<Splashscreen> {
         firebaseAuth: Provider.of(context)
       ),
       builder: (context, provider, child) {
-        provider.init();
+        provider.init(context);
         
         return Scaffold(
           body: Center(

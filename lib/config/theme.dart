@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ourpass_assessment/config/constants.dart';
 
-class Dimensions {
+class AppDimensions {
   static const double xsmall = 4;
   static const double small = 8;
   static const double medium = 16;

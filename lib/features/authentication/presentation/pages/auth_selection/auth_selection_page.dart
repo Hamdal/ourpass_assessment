@@ -17,6 +17,8 @@ class AuthSelectionPage extends StatefulWidget {
 class _AuthSelectionPageState extends State<AuthSelectionPage> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    
     return BasePage<AuthSelectionPageProvider>(
       child: null,
       provider: AuthSelectionPageProvider(),
@@ -33,16 +35,18 @@ class _AuthSelectionPageState extends State<AuthSelectionPage> {
                 children: [
                   const FlutterLogo(
                     style: FlutterLogoStyle.horizontal,
+                    size: 100,
                   ),
                   const Spacer(),
                   const SizedBox(height: 12),
                   SvgPicture.asset(
-                    'assets/images/banner.svg'
+                    'assets/images/banner.svg',
+                    width: size.width * 0.6,
                   ),
                   const SizedBox(height: 12),
                   const Spacer(),
                   const Text(
-                    'DO-IT',
+                    'ASSESSMENT APP',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary
