@@ -4,6 +4,7 @@ import 'package:ourpass_assessment/features/authentication/presentation/pages/au
 import 'package:ourpass_assessment/features/authentication/presentation/pages/create_account/create_account_page.dart';
 import 'package:ourpass_assessment/features/authentication/presentation/pages/login/login_page.dart';
 import 'package:ourpass_assessment/features/authentication/presentation/pages/otp_verification/otp_verification_page.dart';
+import 'package:ourpass_assessment/features/dashboard/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:ourpass_assessment/features/splashscreen/presentation/pages/splashscreen.dart';
 
 class AppRouter {
@@ -19,6 +20,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case RoutePaths.otpVerificationPage:
         return MaterialPageRoute(builder: (_) => const OTPVerificationPage());
+      case RoutePaths.dashboardPage:
+        return MaterialPageRoute(builder: (_) => const DashboardPage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

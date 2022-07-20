@@ -59,7 +59,10 @@ class LoginPageProvider with ChangeNotifier {
       (r) {
         loading = false;
         notifyListeners();
-        // TODO: Navigate to dashboard
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          RoutePaths.dashboardPage,
+          (route) => false
+        );
       }, 
     );
   }
@@ -77,16 +80,14 @@ class LoginPageProvider with ChangeNotifier {
       final result = await checkVerificationStatus(params);
       result.fold(
         (l) {
-          dismissLoading();
           Fluttertoast.showToast(msg: (l as RemoteFailure).message);
-          notifyListeners();
         },
         (verified) {
-          dismissLoading();
-          notifyListeners();
-          
           if (verified) {
-            // TODO: Navigate to dashboard
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              RoutePaths.dashboardPage,
+              (route) => false
+            );
           } else {
             Fluttertoast.showToast(msg: 'You need to verify your account');
             Navigator.of(context).pushNamed(
@@ -96,5 +97,8 @@ class LoginPageProvider with ChangeNotifier {
         }
       );
     }
+
+    dismissLoading();
+    notifyListeners();
   }
 }

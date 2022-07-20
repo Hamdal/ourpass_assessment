@@ -4,16 +4,16 @@ import 'package:flutter/services.dart';
 PreferredSizeWidget getCustomAppBar(
   BuildContext context, 
   {
-    List<Widget>? actions
+    List<Widget>? actions,
+    String? title
   }
 ) {
   return AppBar(
     elevation: 0,
-    titleSpacing: 0.0,
-    leading: IconButton(
-      onPressed: () => Navigator.of(context).pop(),
-      icon: const Icon(
-       Icons.arrow_back_ios
+    title: Text(
+      title ?? '', 
+      style: const TextStyle(
+        color: Colors.black87,
       )
     ),
     iconTheme: Theme.of(context).iconTheme.copyWith(

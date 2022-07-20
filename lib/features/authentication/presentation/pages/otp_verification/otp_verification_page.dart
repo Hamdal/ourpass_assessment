@@ -90,7 +90,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                   FillWidthButton(
                     onPressed: () {
                       if (provider.loading) return;
-                      provider.initVerifyUser();
+                      provider.initVerifyUser(context);
                     },
                     text: 'Verify',
                     loading: provider.loading

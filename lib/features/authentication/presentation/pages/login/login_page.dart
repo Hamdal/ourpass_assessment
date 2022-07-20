@@ -129,9 +129,34 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 12),
                 Center(
                   child: InkWell(
-                    onTap: () => Navigator.of(context).pushNamed(
-                      RoutePaths.createAccountPage
-                    ),
+                    onTap: () {
+                      if (provider.firebaseAuth.currentUser != null) {
+                        showDialog(
+                          context: context, 
+                          barrierDismissible: false,
+                          builder: (dialogContext) {
+                            return AlertDialog(
+                              title: const Text('Log out?'),
+                              content: const Text('You will be logged out of your account'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(dialogContext).pop(), 
+                                  child: const Text('Cancel')
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: const Text('Proceed')
+                                ),
+                              ],
+                            );
+                          }
+                        );
+                      } else {
+                        Navigator.of(context).pushNamed(
+                          RoutePaths.createAccountPage
+                        );
+                      }
+                    },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: const [

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ourpass_assessment/core/error/failures.dart';
+import 'package:ourpass_assessment/core/router/route_paths.dart';
 import 'package:ourpass_assessment/features/authentication/domain/usecases/verify_user.dart';
 
 class OTPVerificationPageProvider with ChangeNotifier {
@@ -20,7 +21,7 @@ class OTPVerificationPageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void initVerifyUser() async {
+  void initVerifyUser(BuildContext context) async {
     if (otpController.value.text.length != 6) {
       Fluttertoast.showToast(msg: 'Invalid OTP');
       return;
@@ -48,7 +49,10 @@ class OTPVerificationPageProvider with ChangeNotifier {
         Fluttertoast.showToast(msg: 'Account was successfully verified.');
         loading = false;
         notifyListeners();
-        // TODO: navigate to dashboard
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          RoutePaths.dashboardPage,
+          (route) => false
+        );
       });
   }
 }

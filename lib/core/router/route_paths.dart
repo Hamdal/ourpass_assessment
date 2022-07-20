@@ -4,4 +4,5 @@ class RoutePaths {
   static const String createAccountPage = 'createAccount';
   static const String loginPage = 'login';
   static const String otpVerificationPage = 'otpVerification';
+  static const String dashboardPage = 'dashboard';
 }
