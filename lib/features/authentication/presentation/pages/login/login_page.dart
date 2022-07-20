@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: const Text('Cancel')
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () => provider.logout(context),
                                   child: const Text('Proceed')
                                 ),
                               ],

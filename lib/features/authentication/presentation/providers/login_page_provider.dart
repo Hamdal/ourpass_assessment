@@ -101,4 +101,12 @@ class LoginPageProvider with ChangeNotifier {
     dismissLoading();
     notifyListeners();
   }
+
+  void logout(BuildContext context) async {
+    await firebaseAuth.signOut();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      RoutePaths.authSelectionPage, 
+      (route) => false
+    );
+  }
 }

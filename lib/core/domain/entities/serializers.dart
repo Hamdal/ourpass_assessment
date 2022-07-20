@@ -4,6 +4,6 @@ import 'package:ourpass_assessment/core/domain/entities/user_profile.dart';
 
 part 'serializers.g.dart';
 
-@SerializersFor(const [UserProfile])
+@SerializersFor([UserProfile])
 final Serializers serializers = (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin()))
   .build();

@@ -6,6 +6,7 @@ import 'package:ourpass_assessment/core/base_page.dart';
 import 'package:ourpass_assessment/core/widgets/custom_appbar.dart';
 import 'package:ourpass_assessment/core/widgets/fill_width_button.dart';
 import 'package:ourpass_assessment/features/dashboard/presentation/providers/dashboard_page_provider.dart';
+import 'package:provider/provider.dart';
 
 
 class DashboardPage extends StatefulWidget {
@@ -22,7 +23,9 @@ class _DashboardPageState extends State<DashboardPage> {
     
     return BasePage<DashboardPageProvider>(
       child: null,
-      provider: DashboardPageProvider(),
+      provider: DashboardPageProvider(
+        firebaseAuth: Provider.of(context)
+      ),
       builder: (context, provider, child) {
         return Scaffold(
           appBar: getCustomAppBar(
@@ -66,7 +69,28 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   const SizedBox(height: AppDimensions.large),
                   FillWidthButton(
-                    onPressed: () {}, 
+                    onPressed: () {
+                      showDialog(
+                        context: context, 
+                        barrierDismissible: false,
+                        builder: (dialogContext) {
+                          return AlertDialog(
+                            title: const Text('Log out?'),
+                            content: const Text('You will be logged out of your account'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(dialogContext).pop(), 
+                                child: const Text('Cancel')
+                              ),
+                              TextButton(
+                                onPressed: () => provider.logout(context),
+                                child: const Text('Proceed')
+                              ),
+                            ],
+                          );
+                        }
+                      );
+                    }, 
                     text: 'Logout'
                   )
                 ],
