@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ourpass_assessment/config/constants.dart';
+import 'package:ourpass_assessment/core/domain/entities/user_profile.dart';
+import 'package:ourpass_assessment/core/error/exceptions.dart';
 import 'package:ourpass_assessment/features/authentication/data/datasources/remote_data_source.dart';
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -30,5 +34,24 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         'created': FieldValue.serverTimestamp()
       });
     }
+  }
+  
+  @override
+  Future<void> login({required String email, required String password}) async {
+    final credential = await firebaseAuth.signInWithEmailAndPassword(
+      email: email, 
+      password: password
+    );
+
+    final userCollection = firestore.collection(FirestoreCollectionPaths.user);
+    final userDoc = await userCollection.doc(credential.user!.uid).get();
+    if (!userDoc.exists) throw UnverifiedAccountException();
+
+    final userProfile = UserProfile.fromJson(json.encode({
+      'id': userDoc.id,
+      'created': (userDoc.data()!['created'] as Timestamp).toDate().toIso8601String(),
+      ...userDoc.data()!..removeWhere((key, value) => key == 'created')
+    }));
+    if (!userProfile.verified) throw UnverifiedAccountException();
   }
 }

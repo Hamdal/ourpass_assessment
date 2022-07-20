@@ -22,3 +22,5 @@ class RemoteFailure extends Failure {
 
   RemoteFailure({required this.message});
 }
+
+class UnverifiedAccountFailure extends Failure {}

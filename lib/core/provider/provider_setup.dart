@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ourpass_assessment/features/authentication/data/datasources/remote_data_source_impl.dart';
 import 'package:ourpass_assessment/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:ourpass_assessment/features/authentication/domain/usecases/create_account.dart';
+import 'package:ourpass_assessment/features/authentication/domain/usecases/login.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -27,7 +28,11 @@ List<SingleChildWidget> dependentServices = [
       => AuthRepositoryImpl(dataSource: dataSource)
   ),
   ProxyProvider<AuthRepositoryImpl, CreateAccount>(
-    update: (context, repository, getAppUserState)
+    update: (context, repository, _)
       => CreateAccount(repository: repository)
+  ),
+  ProxyProvider<AuthRepositoryImpl, LoginUser>(
+    update: (context, repository, _)
+      => LoginUser(repository: repository)
   ),
 ];

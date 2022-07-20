@@ -3,3 +3,5 @@ class RemoteException implements Exception {
 
   RemoteException({required this.message});
 }
+
+class UnverifiedAccountException implements Exception {}

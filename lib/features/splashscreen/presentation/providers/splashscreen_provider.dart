@@ -19,7 +19,11 @@ class SplashscreenProvider with ChangeNotifier {
         );
       });
     } else {
-      // user is signed in. Navigate to login screen
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacementNamed(
+          RoutePaths.loginPage
+        );
+      });
     }
   }
 }
