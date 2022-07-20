@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ourpass_assessment/core/base_page.dart';
 import 'package:ourpass_assessment/features/splashscreen/presentation/providers/splashscreen_provider.dart';
+import 'package:provider/provider.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key}) : super(key: key);
@@ -12,12 +13,16 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BasePage<SplashscreenProvider>(
-        child: null,
-        provider: SplashscreenProvider(),
-        builder: (context, provider, child) {
-          return Center(
+    return BasePage<SplashscreenProvider>(
+      child: null,
+      provider: SplashscreenProvider(
+        firebaseAuth: Provider.of(context)
+      ),
+      builder: (context, provider, child) {
+        provider.init();
+        
+        return Scaffold(
+          body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
@@ -28,9 +33,9 @@ class _SplashscreenState extends State<Splashscreen> {
                 Text('Assessment')
               ],
             ),
-          );
-        },
-      )
+          ),
+        );
+      },
     );
   }
 }
