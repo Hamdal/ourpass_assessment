@@ -4,4 +4,5 @@ class RemoteException implements Exception {
   RemoteException({required this.message});
 }
 
+class FirestoreException implements Exception {}
 class UnverifiedAccountException implements Exception {}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ourpass_assessment/config/constants.dart';
 import 'package:ourpass_assessment/config/theme.dart';
+import 'package:ourpass_assessment/core/app_model.dart';
 import 'package:ourpass_assessment/core/base_page.dart';
 import 'package:ourpass_assessment/core/router/route_paths.dart';
 import 'package:ourpass_assessment/core/util/input_validators.dart';
@@ -19,13 +20,17 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {  
   @override
   Widget build(BuildContext context) {
+    final appModel = Provider.of<AppModel>(context);
+    
     return BasePage<LoginPageProvider>(
       child: null,
       provider: LoginPageProvider(
-        login: Provider.of(context)
+        login: Provider.of(context),
+        checkVerificationStatus: Provider.of(context),
+        firebaseAuth: Provider.of(context)
       ), 
       builder: (context, provider, child) {
         return Scaffold(
@@ -98,17 +103,24 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.primary),
-                        borderRadius: BorderRadius.circular(8)
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Icon(
-                          Icons.fingerprint,
-                          size: 28,
-                          color: AppColors.primary,
+                    Visibility(
+                      visible: appModel.isBiometricAuthAvailable 
+                        && provider.firebaseAuth.currentUser != null,
+                      child: InkWell(
+                        onTap: () => provider.initBiometricLogin(appModel),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.primary),
+                            borderRadius: BorderRadius.circular(8)
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Icon(
+                              Icons.fingerprint,
+                              size: 28,
+                              color: AppColors.primary,
+                            ),
+                          ),
                         ),
                       ),
                     )

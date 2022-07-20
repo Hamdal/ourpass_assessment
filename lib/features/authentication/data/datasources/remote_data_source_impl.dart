@@ -54,4 +54,19 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     }));
     if (!userProfile.verified) throw UnverifiedAccountException();
   }
+  
+  @override
+  Future<bool> checkVerificationStatus({required String userId}) async {
+    final userCollection = firestore.collection(FirestoreCollectionPaths.user);
+    final userDoc = await userCollection.doc(userId).get();
+    if (!userDoc.exists) return false;
+
+    final userProfile = UserProfile.fromJson(json.encode({
+      'id': userDoc.id,
+      'created': (userDoc.data()!['created'] as Timestamp).toDate().toIso8601String(),
+      ...userDoc.data()!..removeWhere((key, value) => key == 'created')
+    }));
+    
+    return userProfile.verified;
+  }
 }

@@ -39,8 +39,19 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left(RemoteFailure(message: getFirebaseErrorMessageFromCode(e.code)));
     } on UnverifiedAccountException {
       return Left(UnverifiedAccountFailure());
+    } on Exception {
+      return Left(RemoteFailure(message: 'An error occurred. Please try again'));
     }
-     on Exception {
+  }
+  
+  @override
+  Future<Either<Failure, bool>> checkVerificationStatus({
+    required String userId
+  }) async {
+    try {
+      final result = await dataSource.checkVerificationStatus(userId: userId);
+      return Right(result);
+    } on Exception {
       return Left(RemoteFailure(message: 'An error occurred. Please try again'));
     }
   }

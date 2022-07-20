@@ -40,6 +40,7 @@ dependencies:
   pin_code_fields: ^7.4.0
   local_auth: ^2.1.0
   flutter_svg: ^1.1.1+1
+  flutter_easyloading: ^3.0.5
   
   # Firebase dependencies
   firebase_core: ^1.19.2

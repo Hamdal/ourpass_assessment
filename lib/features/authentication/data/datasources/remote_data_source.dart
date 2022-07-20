@@ -9,4 +9,7 @@ abstract class AuthRemoteDataSource {
   });
 
   Future<void> login({required String email, required String password});
+
+  /// Throws a [RemoteException] for all errors
+  Future<bool> checkVerificationStatus({required String userId});
 }

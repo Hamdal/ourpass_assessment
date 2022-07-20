@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ourpass_assessment/core/app_model.dart';
 import 'package:ourpass_assessment/core/provider/provider_setup.dart';
 import 'package:ourpass_assessment/core/router/route_paths.dart';
@@ -49,16 +50,34 @@ class MyFirebaseApp extends StatelessWidget {
     return MultiProvider(
       providers: providers,
       builder: (context, child) {
+        EasyLoading.instance
+            ..displayDuration = const Duration(milliseconds: 2000)
+            ..indicatorType = EasyLoadingIndicatorType.chasingDots
+            ..loadingStyle = EasyLoadingStyle.light
+            ..indicatorSize = 45.0
+            ..radius = 10.0
+            ..contentPadding = const EdgeInsets.all(40)
+            ..progressColor = Colors.yellow
+            ..backgroundColor = Colors.green
+            ..indicatorColor = Colors.yellow
+            ..textColor = Colors.yellow
+            ..maskColor = Colors.black.withOpacity(0.8)
+            ..userInteractions = false
+            ..dismissOnTap = false;
+        
         return ChangeNotifierProvider.value(
           value: AppModel(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            initialRoute: RoutePaths.splashScreen,
-            onGenerateRoute: AppRouter.generateRoute,
-            builder: (context, child) {
-              return child!;
-            },
-          )
+          builder: (context, child) {
+            final appModel = Provider.of<AppModel>(context);
+            appModel.init();
+            
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              initialRoute: RoutePaths.splashScreen,
+              onGenerateRoute: AppRouter.generateRoute,
+              builder: EasyLoading.init(),
+            );
+          },
         );
       },
     );
