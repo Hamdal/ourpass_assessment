@@ -14,4 +14,9 @@ abstract class AuthRepository {
   });
 
   Future<Either<Failure, bool>> checkVerificationStatus({required String userId});
+  
+  Future<Either<Failure, void>> verifyUser({
+    required String userId,
+    required String otp
+  });
 }

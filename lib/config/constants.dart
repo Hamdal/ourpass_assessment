@@ -9,7 +9,7 @@ class AppColors {
 }
 
 class AppStrings {
-
+  static const String otp = '123456';
 }
 
 class FirestoreCollectionPaths {

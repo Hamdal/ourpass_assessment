@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                       visible: appModel.isBiometricAuthAvailable 
                         && provider.firebaseAuth.currentUser != null,
                       child: InkWell(
-                        onTap: () => provider.initBiometricLogin(appModel),
+                        onTap: () => provider.initBiometricLogin(context, appModel),
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: AppColors.primary),

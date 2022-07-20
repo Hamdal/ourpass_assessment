@@ -12,4 +12,7 @@ abstract class AuthRemoteDataSource {
 
   /// Throws a [RemoteException] for all errors
   Future<bool> checkVerificationStatus({required String userId});
+
+  /// Throws a [RemoteException] for all errors
+  Future<void> verifyUser({required String userId, required String otp});
 }

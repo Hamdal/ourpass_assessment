@@ -45,7 +45,9 @@ class CreateAccountPageProvider with ChangeNotifier {
         Fluttertoast.showToast(msg: 'Account created successfully');
         loading = false;
         notifyListeners();
-        // TODO: Navigate to otp verification screen
+        Navigator.of(context).pushNamed(
+          RoutePaths.otpVerificationPage
+        );
       }, 
     );
   }

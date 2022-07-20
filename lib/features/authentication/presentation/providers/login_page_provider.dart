@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ourpass_assessment/core/app_model.dart';
 import 'package:ourpass_assessment/core/error/failures.dart';
+import 'package:ourpass_assessment/core/router/route_paths.dart';
 import 'package:ourpass_assessment/core/util/visual_alerts.dart';
 import 'package:ourpass_assessment/features/authentication/domain/usecases/check_verification_status.dart';
 import 'package:ourpass_assessment/features/authentication/domain/usecases/login.dart';
@@ -48,7 +49,9 @@ class LoginPageProvider with ChangeNotifier {
         
         if (l is UnverifiedAccountFailure) {
           Fluttertoast.showToast(msg: 'You need to verify your account');
-          // TODO: navigate to OTP page
+          Navigator.of(context).pushNamed(
+            RoutePaths.otpVerificationPage
+          );
         } else {
           Fluttertoast.showToast(msg: (l as RemoteFailure).message);
         }
@@ -61,7 +64,7 @@ class LoginPageProvider with ChangeNotifier {
     );
   }
 
-  void initBiometricLogin(AppModel appModel) async {
+  void initBiometricLogin(BuildContext context, AppModel appModel) async {
     if (firebaseAuth.currentUser == null || !appModel.isBiometricAuthAvailable) {
       return;
     }
@@ -86,7 +89,9 @@ class LoginPageProvider with ChangeNotifier {
             // TODO: Navigate to dashboard
           } else {
             Fluttertoast.showToast(msg: 'You need to verify your account');
-            // TODO: navigate to OTP page
+            Navigator.of(context).pushNamed(
+              RoutePaths.otpVerificationPage
+            );
           }
         }
       );

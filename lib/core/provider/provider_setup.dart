@@ -5,6 +5,7 @@ import 'package:ourpass_assessment/features/authentication/data/repository/auth_
 import 'package:ourpass_assessment/features/authentication/domain/usecases/check_verification_status.dart';
 import 'package:ourpass_assessment/features/authentication/domain/usecases/create_account.dart';
 import 'package:ourpass_assessment/features/authentication/domain/usecases/login.dart';
+import 'package:ourpass_assessment/features/authentication/domain/usecases/verify_user.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -39,5 +40,9 @@ List<SingleChildWidget> dependentServices = [
   ProxyProvider<AuthRepositoryImpl, CheckVerificationStatus>(
     update: (context, repository, _)
       => CheckVerificationStatus(repository: repository)
+  ),
+  ProxyProvider<AuthRepositoryImpl, VerifyUser>(
+    update: (context, repository, _)
+      => VerifyUser(repository: repository)
   ),
 ];

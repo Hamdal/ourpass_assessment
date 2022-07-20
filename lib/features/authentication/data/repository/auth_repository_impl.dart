@@ -55,4 +55,21 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left(RemoteFailure(message: 'An error occurred. Please try again'));
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> verifyUser({
+    required String userId, 
+    required String otp
+  }) async {
+    try {
+      await dataSource.verifyUser(userId: userId, otp: otp);
+      return const Right(null);
+    } on FirebaseAuthException catch(e) {
+      return Left(RemoteFailure(message: getFirebaseErrorMessageFromCode(e.code)));
+    } on RemoteException catch (e) {
+      return Left(RemoteFailure(message: e.message));
+    } on Exception {
+      return Left(RemoteFailure(message: 'An error occurred. Please try again'));
+    }
+  }
 }

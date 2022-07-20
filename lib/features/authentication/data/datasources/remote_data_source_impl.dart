@@ -69,4 +69,16 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     
     return userProfile.verified;
   }
+  
+  @override
+  Future<void> verifyUser({required String userId, required String otp}) async {
+    final userCollection = firestore.collection(FirestoreCollectionPaths.user);
+    final userRef = userCollection.doc(userId);
+    final userDoc = await userRef.get();
+
+    if (!userDoc.exists) throw RemoteException(message: 'User not found');
+    if (otp != AppStrings.otp) throw RemoteException(message: 'Invalid OTP');
+    
+    await userRef.update({'verified': true});
+  }
 }
